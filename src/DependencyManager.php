@@ -24,4 +24,26 @@ class DependencyManager
         }
         return array_merge($dependencies, $unpackedDependencies);
     }
+
+    public static function resolveClassToInstance(string $class)
+    {
+        $class = self::$dependecies[$class] ?? $class;
+        $classReflection = new \ReflectionClass($class);
+        $constructorReflection = $classReflection->getConstructor();
+        if($constructorReflection === NULL || $constructorReflection->getNumberOfRequiredParameters() === 0)
+        {
+            return $classReflection->newInstance();
+        }
+        $resolvedParameters = [];
+        $classParameters = $constructorReflection->getParameters();
+        foreach ($classParameters as $classParameterReflection)
+        {
+            if($classParameterReflection->isOptional())
+            {
+                continue;
+            }
+            $resolvedParameters[] = self::resolveClassToInstance($classParameterReflection->getType()->getName());
+        }
+        return $classReflection->newInstanceArgs($resolvedParameters);
+    }
 }
