@@ -15,5 +15,7 @@
             "email": "48760619+xBlixon@users.noreply.github.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": "^8.2"
+    }
 }
