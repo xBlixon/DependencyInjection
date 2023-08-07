@@ -1,0 +1,19 @@
+{
+    "name": "velsym/dependency-manager",
+    "description": "Dependency management system for PHP.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Velsym\\DependencyManager\\": "src/",
+            "Velsym\\TestClasses\\": "testing/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Xawier Slupik",
+            "email": "48760619+xBlixon@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
