@@ -1,5 +1,5 @@
 {
-    "name": "velsym/dependency-manager",
+    "name": "velsym/dependency-injection",
     "description": "Dependency management system for PHP.",
     "type": "library",
     "license": "MIT",
