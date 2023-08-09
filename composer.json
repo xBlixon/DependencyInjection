@@ -5,7 +5,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Velsym\\DependencyManager\\": "src/",
+            "Velsym\\DependencyInjection\\": "src/",
             "Velsym\\TestClasses\\": "testing/"
         }
     },

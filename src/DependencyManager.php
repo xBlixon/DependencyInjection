@@ -1,14 +1,14 @@
 <?php
 
-namespace Velsym\DependencyManager;
+namespace Velsym\DependencyInjection;
 
 class DependencyManager
 {
-    private static array $dependecies = [];
+    private static array $dependencies = [];
 
     public static function loadDependencies(array $dependencies): void
     {
-        self::$dependecies = self::unpackSubDependencies($dependencies);
+        self::$dependencies = self::unpackSubDependencies($dependencies);
     }
 
     private static function unpackSubDependencies(array $dependencies): array
@@ -25,7 +25,7 @@ class DependencyManager
 
     public static function resolveClassToInstance(string $class)
     {
-        $class = self::$dependecies[$class] ?? $class;
+        $class = self::$dependencies[$class] ?? $class;
         $classReflection = new \ReflectionClass($class);
         $constructorReflection = $classReflection->getConstructor();
         if ($constructorReflection === NULL || $constructorReflection->getNumberOfRequiredParameters() === 0) {

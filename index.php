@@ -1,7 +1,7 @@
 <?php
 require "vendor/autoload.php";
 
-use Velsym\DependencyManager\DependencyManager;
+use Velsym\DependencyInjection\DependencyManager;
 
 $dependencies = (require "testing/dependencies.php");
 DependencyManager::loadDependencies($dependencies);
