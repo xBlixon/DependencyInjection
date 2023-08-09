@@ -14,10 +14,8 @@ class DependencyManager
     private static function unpackSubDependencies(array $dependencies): array
     {
         $unpackedDependencies = [];
-        foreach ($dependencies as $alias => $dependency)
-        {
-            if(is_array($dependency))
-            {
+        foreach ($dependencies as $alias => $dependency) {
+            if (is_array($dependency)) {
                 $unpackedDependencies = array_merge($unpackedDependencies, self::unpackSubDependencies($dependency));
                 unset($dependencies[$alias]);
             }
@@ -30,16 +28,13 @@ class DependencyManager
         $class = self::$dependecies[$class] ?? $class;
         $classReflection = new \ReflectionClass($class);
         $constructorReflection = $classReflection->getConstructor();
-        if($constructorReflection === NULL || $constructorReflection->getNumberOfRequiredParameters() === 0)
-        {
+        if ($constructorReflection === NULL || $constructorReflection->getNumberOfRequiredParameters() === 0) {
             return $classReflection->newInstance();
         }
         $resolvedParameters = [];
         $classParameters = $constructorReflection->getParameters();
-        foreach ($classParameters as $classParameterReflection)
-        {
-            if($classParameterReflection->isOptional())
-            {
+        foreach ($classParameters as $classParameterReflection) {
+            if ($classParameterReflection->isOptional()) {
                 continue;
             }
             $resolvedParameters[] = self::resolveClassToInstance($classParameterReflection->getType()->getName());
