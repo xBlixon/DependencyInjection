@@ -3,7 +3,14 @@ require "vendor/autoload.php";
 
 use Velsym\DependencyInjection\DependencyManager;
 
-$dependencies = (require "testing/dependencies.php");
-DependencyManager::loadDependencies($dependencies);
-//$person = DependencyManager::resolveClassToInstance("Velsym\TestClasses\Person");
-//var_dump($person);
+$dependencies = [
+//    Example of how to use dependencies
+//    (require "testing/dependencies.php"),
+//    (require "testing/ext-dependencies.php"),
+//    (require "testing/ext-dependencies-2.php")
+];
+
+DependencyManager::loadDependencies(array_merge(...$dependencies));
+
+$person = DependencyManager::resolveClassToInstance("bogus");
+var_dump($person);

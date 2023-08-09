@@ -8,37 +8,31 @@ class DependencyManager
 
     public static function loadDependencies(array $dependencies): void
     {
-        self::$dependencies = self::unpackSubDependencies($dependencies);
-    }
-
-    private static function unpackSubDependencies(array $dependencies): array
-    {
-        $unpackedDependencies = [];
-        foreach ($dependencies as $alias => $dependency) {
-            if (is_array($dependency)) {
-                $unpackedDependencies = array_merge($unpackedDependencies, self::unpackSubDependencies($dependency));
-                unset($dependencies[$alias]);
-            }
-        }
-        return array_merge($dependencies, $unpackedDependencies);
+        self::$dependencies = array_merge(self::$dependencies, $dependencies);
     }
 
     public static function resolveClassToInstance(string $class)
     {
+        $isWithParams = isset(self::$dependencies[$class]) && is_array(self::$dependencies[$class]);
         $class = self::$dependencies[$class] ?? $class;
-        $classReflection = new \ReflectionClass($class);
+        $classReflection = new \ReflectionClass($isWithParams ? $class['class'] : $class);
         $constructorReflection = $classReflection->getConstructor();
-        if ($constructorReflection === NULL || $constructorReflection->getNumberOfRequiredParameters() === 0) {
+        if ($constructorReflection === NULL || $constructorReflection->getNumberOfParameters() === 0) {
             return $classReflection->newInstance();
         }
-        $resolvedParameters = [];
+        $resolvedParameters = $class['params'] ?? [];
         $classParameters = $constructorReflection->getParameters();
         foreach ($classParameters as $classParameterReflection) {
             if ($classParameterReflection->isOptional()) {
                 continue;
             }
-            $resolvedParameters[] = self::resolveClassToInstance($classParameterReflection->getType()->getName());
+            $resolvedParameters[$classParameterReflection->name] = self::resolveClassToInstance($classParameterReflection->getType()->getName());
         }
         return $classReflection->newInstanceArgs($resolvedParameters);
+    }
+
+    public static function getDependencies(): array
+    {
+        return self::$dependencies;
     }
 }
