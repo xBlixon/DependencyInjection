@@ -2,6 +2,9 @@
 require "vendor/autoload.php";
 
 use Velsym\DependencyInjection\DependencyManager;
+use Velsym\TestClasses\Name;
+use Velsym\TestClasses\Person;
+use Velsym\TestClasses\Surname;
 
 $dependencies = [
 //    Example of how to use dependencies
@@ -12,5 +15,8 @@ $dependencies = [
 
 DependencyManager::loadDependencies(array_merge(...$dependencies));
 
-$person = DependencyManager::resolveClassToInstance("bogus");
-var_dump($person);
+$person = new Person(new Name("gustavo"), new Surname("fring"));
+
+$v = DependencyManager::callMethodWithResolvedArguments($person, 'presentYourself', ['age' => 21]);
+
+var_dump($v);

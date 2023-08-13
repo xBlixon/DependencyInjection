@@ -11,7 +11,7 @@ class DependencyManager
         self::$dependencies = array_merge(self::$dependencies, $dependencies);
     }
 
-    public static function resolveClassToInstance(string $class)
+    public static function resolveClassToInstance(string $class, array $manualArguments = [])
     {
         $isWithParams = isset(self::$dependencies[$class]) && is_array(self::$dependencies[$class]);
         $class = self::$dependencies[$class] ?? $class;
@@ -21,14 +21,26 @@ class DependencyManager
             return $classReflection->newInstance();
         }
         $resolvedParameters = $class['params'] ?? [];
+        $resolvedParameters = array_merge($resolvedParameters, $manualArguments);
         $classParameters = $constructorReflection->getParameters();
         foreach ($classParameters as $classParameterReflection) {
-            if ($classParameterReflection->isOptional()) {
-                continue;
-            }
+            if (isset($resolvedParameters[$classParameterReflection->name]) || $classParameterReflection->isOptional()) continue;
             $resolvedParameters[$classParameterReflection->name] = self::resolveClassToInstance($classParameterReflection->getType()->getName());
         }
         return $classReflection->newInstanceArgs($resolvedParameters);
+    }
+
+    public static function callMethodWithResolvedArguments(object $object, string $methodName, array $manualArguments = []): mixed
+    {
+        $methodReflection = new \ReflectionMethod($object, $methodName);
+        $methodParameters = $methodReflection->getParameters();
+        $resolvedParameters = $manualArguments;
+
+        foreach ($methodParameters as $methodParameterReflection) {
+            if (isset($resolvedParameters[$methodParameterReflection->name]) || $methodParameterReflection->isOptional()) continue;
+            $resolvedParameters[$methodParameterReflection->name] = self::resolveClassToInstance($methodParameterReflection->getType()->getName());
+        }
+        return $methodReflection->invokeArgs($object, $resolvedParameters);
     }
 
     public static function getDependencies(): array
