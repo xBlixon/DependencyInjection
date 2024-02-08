@@ -13,7 +13,7 @@ class DependencyManager
 
     public static function resolveClassToInstance(string $class, array $manualArguments = [])
     {
-        $isWithParams = isset(self::$dependencies[$class]) && is_array(self::$dependencies[$class]);
+        $isWithParams = isset(self::$dependencies[$class]['params']);
         $class = self::$dependencies[$class] ?? $class;
         $classReflection = new \ReflectionClass($isWithParams ? $class['class'] : $class);
         $constructorReflection = $classReflection->getConstructor();
