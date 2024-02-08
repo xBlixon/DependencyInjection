@@ -21,6 +21,9 @@ class DependencyManager
             return $classReflection->newInstance();
         }
         $resolvedParameters = $class['params'] ?? [];
+        foreach ($resolvedParameters as $name => $value) {
+            $resolvedParameters[$name] = (interface_exists($value) ? self::resolveClassToInstance($value) : $value);
+        }
         $resolvedParameters = array_merge($resolvedParameters, $manualArguments);
         $classParameters = $constructorReflection->getParameters();
         foreach ($classParameters as $classParameterReflection) {
