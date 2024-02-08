@@ -1,0 +1,109 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "e59d870d30f39efc5d9e14e6b81f1d9b",
+    "packages": [],
+    "packages-dev": [
+        {
+            "name": "velsym/testing-dependencies",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xBlixon/TestingDependencies.git",
+                "reference": "e6e693deac98f97664d0a6b82354e177d723bd79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xBlixon/TestingDependencies/zipball/e6e693deac98f97664d0a6b82354e177d723bd79",
+                "reference": "e6e693deac98f97664d0a6b82354e177d723bd79",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2",
+                "velsym/universal-pack": "dev-main"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Velsym\\TestingDependencies\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Xawier Slupik",
+                    "email": "48760619+xBlixon@users.noreply.github.com"
+                }
+            ],
+            "description": "This package is made to test packages that require dependencies.",
+            "support": {
+                "issues": "https://github.com/xBlixon/TestingDependencies/issues",
+                "source": "https://github.com/xBlixon/TestingDependencies/tree/main"
+            },
+            "time": "2024-02-08T17:06:22+00:00"
+        },
+        {
+            "name": "velsym/universal-pack",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xBlixon/UniversalPack.git",
+                "reference": "32ce5e32d4b4f54e34a0d82faddde43be8685995"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xBlixon/UniversalPack/zipball/32ce5e32d4b4f54e34a0d82faddde43be8685995",
+                "reference": "32ce5e32d4b4f54e34a0d82faddde43be8685995",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^10.5"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Velsym\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Xawier Slupik",
+                    "email": "48760619+xBlixon@users.noreply.github.com"
+                }
+            ],
+            "description": "Connector for velsym packages.",
+            "support": {
+                "issues": "https://github.com/xBlixon/UniversalPack/issues",
+                "source": "https://github.com/xBlixon/UniversalPack/tree/main"
+            },
+            "time": "2024-02-07T17:16:20+00:00"
+        }
+    ],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "velsym/testing-dependencies": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": "^8.2"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}

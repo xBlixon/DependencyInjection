@@ -15,7 +15,11 @@
             "email": "48760619+xBlixon@users.noreply.github.com"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "php": "^8.2"
+    },
+    "require-dev": {
+        "velsym/testing-dependencies": "main-dev"
     }
 }
